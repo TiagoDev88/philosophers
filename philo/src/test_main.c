@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 19:56:01 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/19 21:15:25 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/19 22:50:57 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,6 @@ void	init_philo(t_data *data)
 
 int	init_all(t_data *data, int argc, char** argv)
 {
-	if (argc < 5 || argc > 6)
-	{
-		printf("Usage: ./philo <num_philos> <time_to_die> <time_to_eat> "
-			"<time_to_sleep> [<must_eat>]\n");
-		return (1);
-	}
 	data->num_philos = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
@@ -53,19 +47,20 @@ int	init_all(t_data *data, int argc, char** argv)
 		data->must_eat = -1;
 	data->philos = malloc(sizeof(t_philo) * data->num_philos);
 	if (!data->philos)
-		return (printf("malloc philos fail\n"), 1);
+		return (printf("malloc philos fail\n"), 0);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->num_philos);
 	if (!data->forks)
-		return (printf("malloc forks fail\n"), 1);
+		return (printf("malloc forks fail\n"), 0);
 	init_philo(data);
-	return (0);
+	return (1);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	int		i;
 
+	if (!check_args(argc, argv))
+		return (1);
 	if (!init_all(&data, argc, argv))
 		return (1);
 

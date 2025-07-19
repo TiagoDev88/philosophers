@@ -7,6 +7,12 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <limits.h>
+
+# define ERR_ONLY_NUM "ERROR: Only numbers from 1 to INT_MAX allowed\n"
+# define ERR_ARGS "ERROR: Usage: ./philo <num_philos> <time_to_die> \
+<time_to_eat> <time_to_sleep> OPTIONAL-> [<must_eat>]\n"
+
 
 
 typedef struct s_philo
@@ -32,5 +38,6 @@ typedef struct s_data
 }				t_data;
 
 int		ft_atoi(const char *str);
+int check_args(int argc, char **argv);
 
 #endif

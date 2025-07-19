@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 12:17:36 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/19 13:41:25 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/19 22:50:48 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/philo.h"
 
@@ -35,4 +35,64 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (result * signal);
+}
+
+static int ft_atol(char* s)
+{
+	long res;
+	int signal;
+	int i;
+
+	i = 0;
+	signal = 1;
+	res = 0;
+	while (s[i] == 32 || (s[i] >= 9 && s[i] <= 13))
+		i++;
+	if (s[i] == '-' || s[i] == '+')
+	{
+		if (s[i] == '-')
+			signal = -signal;
+		i++;
+	}
+	while (s[i] && (s[i] >= '0' && s[i] <= '9'))
+	{
+		res = (res * 10) + (s[i] - 48);
+		i++;
+	}
+	return (res * signal);
+}
+
+static int	only_num(char **argv)
+{
+	int	i;
+	int j;
+	long tmp;
+
+	i = 1;
+	while (argv[i])
+	{
+		j = 0;
+		if (argv[i][j] == '+' || argv[i][j] == '-')
+			i++;
+		while (argv[i][j])
+		{
+			if (argv[i][j] < '0' || argv[i][j] > '9')
+				return (0);
+			j++;
+		}
+		tmp = ft_atol(argv[i]);
+		if (tmp < 1 || tmp > INT_MAX)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int check_args(int argc, char **argv)
+{
+	if (argc < 5 || argc > 6)
+		return (printf("%s", ERR_ARGS), 0);
+	if (!only_num(argv))
+		return (printf("%s", ERR_ONLY_NUM), 0);
+	return (1);
 }
