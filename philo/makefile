@@ -6,7 +6,8 @@ CC = cc
 
 SRC_DIR = src
 
-SRC_MAIN	=	main.c
+# SRC_MAIN	=	main.c
+SRC_MAIN	=	test_main.c
 SRC_UTILS	=	$(addprefix utils/, utils.c)
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC_MAIN) $(SRC_UTILS))

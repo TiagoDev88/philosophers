@@ -6,11 +6,11 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 12:17:36 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/19 12:18:25 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/19 13:41:25 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#include "../includes/philo.h"
+#include "../../includes/philo.h"
 
 int	ft_atoi(const char *str)
 {
