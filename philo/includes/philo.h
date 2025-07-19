@@ -29,4 +29,6 @@ typedef struct s_data
 	t_philo			*philos;
 }				t_data;
 
+int		ft_atoi(const char *str);
+
 #endif
