@@ -1,0 +1,57 @@
+Funções de tempo
+usleep()
+"Esta função faz a minha thread dormir um bocado. O tempo é em microssegundos.
+Por exemplo, usleep(1000000) faz a thread parar durante 1 segundo."
+
+gettimeofday()
+"Serve para saber o tempo que passou.
+Guardo o tempo de início, depois o tempo atual, e subtraio para saber quantos milissegundos passaram.
+Uso isto para saber se o filósofo morreu ou quanto tempo está a comer."
+
+Funções de threads
+pthread_create()
+"Cria uma nova thread.
+Cada filósofo é uma thread.
+Digo qual é a função que essa thread vai correr.
+Exemplo: pthread_create(&tid, NULL, funcao_do_filo, &dados);"
+
+pthread_detach()
+"Digo que não quero esperar pela thread no fim.
+Ela limpa-se sozinha quando acabar.
+Uso isto em threads que quero que funcionem sozinhas, como a que verifica se o filósofo morreu."
+
+pthread_join()
+"Espero que a thread acabe antes de continuar.
+Uso isto se quiser garantir que todos os filósofos terminaram antes de fechar o programa."
+
+Funções de mutex (trancar e destrancar coisas partilhadas)
+pthread_mutex_init()
+"Crio um mutex.
+Uso para proteger coisas partilhadas, tipo os garfos.
+Cada garfo é um mutex."
+
+pthread_mutex_destroy()
+"Apago o mutex depois de já não o usar.
+Boa prática para limpar no fim do programa."
+
+pthread_mutex_lock()
+"Tento trancar o mutex.
+Se alguém já estiver a usar, fico à espera.
+Uso isto quando um filósofo quer pegar num garfo."
+
+pthread_mutex_unlock()
+"Destranco o mutex.
+Assim outro filósofo pode usar o garfo.
+Faço isto depois de comer."
+
+
+pthread_mutex_lock(&garfo[i]);
+// o filósofo pegou no garfo i
+pthread_mutex_lock(&garfo[(i + 1) % N]);
+// pegou no garfo da direita
+
+// agora come
+
+pthread_mutex_unlock(&garfo[i]);
+pthread_mutex_unlock(&garfo[(i + 1) % N]);
+// largou os dois garfos
