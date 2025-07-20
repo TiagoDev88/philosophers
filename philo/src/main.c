@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 19:56:01 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/20 14:36:05 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/20 15:02:47 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ int check_args(int argc, char **argv)
 	return (SUCCESS);
 }
 
+//TODO tv_sec para segundos, e tv_usec para microssegundos
+// tv_sec * 1000 para passar para milissegundos
+// tv_usec / 1000 para passar para milissegundos
+// somo os os dois valores para obter o tempo total em milissegundos
 long get_time()
 {
 	long res;
@@ -28,7 +32,7 @@ long get_time()
 
 	res = 0;
 	gettimeofday(&time, NULL);
-	res += (time.tv_sec * 1000);
+	res += time.tv_sec * 1000 + time.tv_usec / 1000;
 	return (res);
 }
 int	main(int argc, char **argv)
@@ -39,6 +43,9 @@ int	main(int argc, char **argv)
 		return (FAILURE);
 	if (init_all(&data, argc, argv) == FAILURE)
 		return (FAILURE);
-	printf("Current time: %ld ms\n", get_time());
+	data.start_time = get_time();
+	usleep(5000);
+	long test = get_time();
+	printf("Current time: %ld ms\n", test - data.start_time );
 	return (SUCCESS);
 }
