@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 12:17:36 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/19 22:50:48 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/20 12:09:21 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	only_num(char **argv)
 	{
 		j = 0;
 		if (argv[i][j] == '+' || argv[i][j] == '-')
-			i++;
+			j++;
 		while (argv[i][j])
 		{
 			if (argv[i][j] < '0' || argv[i][j] > '9')
