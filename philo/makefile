@@ -6,7 +6,7 @@ CC = cc
 
 SRC_DIR = src
 
-SRC_MAIN	=	main.c
+SRC_MAIN	=	main.c init.c
 # SRC_MAIN	=	main_thread.c
 SRC_UTILS	=	$(addprefix utils/, utils.c)
 
