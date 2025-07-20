@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 12:17:36 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/20 12:09:21 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/20 12:19:27 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_atoi(const char *str)
 	return (result * signal);
 }
 
-static int ft_atol(char* s)
+int ft_atol(char* s)
 {
 	long res;
 	int signal;
@@ -62,7 +62,7 @@ static int ft_atol(char* s)
 	return (res * signal);
 }
 
-static int	only_num(char **argv)
+int	only_num(char **argv)
 {
 	int	i;
 	int j;
@@ -88,11 +88,4 @@ static int	only_num(char **argv)
 	return (1);
 }
 
-int check_args(int argc, char **argv)
-{
-	if (argc < 5 || argc > 6)
-		return (printf("%s", ERR_ARGS), 0);
-	if (!only_num(argv))
-		return (printf("%s", ERR_ONLY_NUM), 0);
-	return (1);
-}
+

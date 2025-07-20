@@ -37,7 +37,14 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 }				t_data;
 
+/* utils.c */
 int		ft_atoi(const char *str);
-int check_args(int argc, char **argv);
+int		ft_atol(char *s);
+int		only_num(char **argv);
+/* init.c */
+int		init_philo(t_data *data);
+int		init_all(t_data *data, int argc, char **argv);
+/* main.c */
+int		check_args(int argc, char **argv);
 
 #endif
