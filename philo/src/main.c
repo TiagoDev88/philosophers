@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 19:56:01 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/20 21:31:15 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/20 21:38:04 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ void	*philo_routine(void *a)
 
 }
 
-int 	start_philo(t_data *data)
+
+
+int 	start_dinner(t_data *data)
 {
 	int i;
 
@@ -74,7 +76,8 @@ int	main(int argc, char **argv)
 		return (FAILURE);
 	if (init_all(&data, argc, argv) == FAILURE)
 		return (FAILURE);
-	start_philo(&data);
+	start_dinner(&data);
+	
 	// data.start_time = get_time();
 	// usleep(5000);
 	// long test = get_time();
