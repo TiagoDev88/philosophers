@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 19:56:01 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/20 13:59:26 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/20 14:36:05 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,30 @@
 int check_args(int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
-		return (printf("%s", ERR_ARGS), 0);
+		return (printf("%s", ERR_ARGS), FAILURE);
 	if (!only_num(argv))
-		return (printf("%s", ERR_ONLY_NUM), 0);
-	return (1);
+		return (printf("%s", ERR_ONLY_NUM), FAILURE);
+	return (SUCCESS);
 }
 
-int get_time(int time)
+long get_time()
 {
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	time *= tv.tv_sec;
-	printf("%ld\n", time);
-	return (1);
+	long res;
+	struct timeval time;
+
+	res = 0;
+	gettimeofday(&time, NULL);
+	res += (time.tv_sec * 1000);
+	return (res);
 }
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	if (!check_args(argc, argv))
-		return (1);
-	if (!init_all(&data, argc, argv))
-		return (1);
-	get_time(ft_atoi(argv[2]));
-	return (0);
+	if (check_args(argc, argv) == FAILURE)
+		return (FAILURE);
+	if (init_all(&data, argc, argv) == FAILURE)
+		return (FAILURE);
+	printf("Current time: %ld ms\n", get_time());
+	return (SUCCESS);
 }

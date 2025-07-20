@@ -12,16 +12,23 @@
 # define ERR_ONLY_NUM "ERROR: Only numbers from 1 to INT_MAX allowed\n"
 # define ERR_ARGS "ERROR: Usage: ./philo <num_philos> <time_to_die> \
 <time_to_eat> <time_to_sleep> OPTIONAL-> [<must_eat>]\n"
+# define ERR_MUTEX_FAIL "ERROR: Mutex Failed\n"
 
+typedef pthread_mutex_t		t_mtx;
 
+typedef enum e_code
+{
+	SUCCESS,
+	FAILURE
+}			t_code;
 
 typedef struct s_philo
 {
 	int				id;
 	long			last_meal;
 	int				meals_eaten;
-	pthread_mutex_t		*left_fork;
-	pthread_mutex_t		*right_fork;
+	t_mtx			*left_fork;
+	t_mtx			*right_fork;
 	struct s_data	*data;
 }				t_philo;
 
@@ -34,7 +41,7 @@ typedef struct s_data
 	int				must_eat;
 	long			start_time;
 	t_philo			*philos;
-	pthread_mutex_t	*forks;
+	t_mtx			*forks;
 }				t_data;
 
 /* utils.c */
