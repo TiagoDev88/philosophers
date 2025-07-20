@@ -29,6 +29,7 @@ typedef struct s_philo
 	int				meals_eaten;
 	t_mtx			*left_fork;
 	t_mtx			*right_fork;
+	pthread_t		thread;
 	struct s_data	*data;
 }				t_philo;
 

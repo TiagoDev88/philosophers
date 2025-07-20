@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 19:56:01 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/20 15:02:47 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/20 20:28:55 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ long get_time()
 	res += time.tv_sec * 1000 + time.tv_usec / 1000;
 	return (res);
 }
+
+
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
