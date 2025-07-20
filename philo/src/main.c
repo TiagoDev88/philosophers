@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 19:56:01 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/20 12:20:27 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/20 13:59:26 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@ int check_args(int argc, char **argv)
 	return (1);
 }
 
+int get_time(int time)
+{
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	time *= tv.tv_sec;
+	printf("%ld\n", time);
+	return (1);
+}
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -29,6 +37,6 @@ int	main(int argc, char **argv)
 		return (1);
 	if (!init_all(&data, argc, argv))
 		return (1);
-
+	get_time(ft_atoi(argv[2]));
 	return (0);
 }
