@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:16:21 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/20 14:34:45 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/20 21:35:13 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	init_philo(t_data *data)
 		data->philos[i].id = i;
 		data->philos[i].meals_eaten = 0;
 		data->philos[i].last_meal = 0;
-		data->philos[i].data = data;
 		data->philos[i].left_fork = &data->forks[i];
 		data->philos[i].right_fork = &data->forks[(i + 1) % data->num_philos];
 		i++;

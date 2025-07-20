@@ -13,6 +13,8 @@
 # define ERR_ARGS "ERROR: Usage: ./philo <num_philos> <time_to_die> \
 <time_to_eat> <time_to_sleep> OPTIONAL-> [<must_eat>]\n"
 # define ERR_MUTEX_FAIL "ERROR: Mutex Failed\n"
+# define ERR_THREAD_CREATE_FAIL "ERROR: Failed to create thread for philosopher\n"
+# define ERR_THREAD_JOIN_FAIL "Failed to join thread for philosopher\n"
 
 typedef pthread_mutex_t		t_mtx;
 
@@ -30,7 +32,6 @@ typedef struct s_philo
 	t_mtx			*left_fork;
 	t_mtx			*right_fork;
 	pthread_t		thread;
-	struct s_data	*data;
 }				t_philo;
 
 typedef struct s_data

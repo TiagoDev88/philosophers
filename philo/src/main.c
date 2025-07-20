@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 19:56:01 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/20 20:28:55 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/20 21:31:15 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,35 @@ long get_time()
 	return (res);
 }
 
+void	*philo_routine(void *a)
+{
+	t_philo *philo = (t_philo *)a;
+	pthread_mutex_lock(philo->left_fork);
+	printf("OLA from %d\n", philo->id);
+	pthread_mutex_unlock(philo->left_fork);
 
+}
+
+int 	start_philo(t_data *data)
+{
+	int i;
+
+	i = 0;
+	while (i < data->num_philos)
+	{
+		if (pthread_create(&data->philos[i].thread, NULL, &philo_routine, &data->philos[i]) != 0)
+			return (printf("%s", ERR_THREAD_CREATE_FAIL), FAILURE);
+		i++;
+	}
+		i = 0;
+	while (i < data->num_philos)
+	{
+		if (pthread_join(data->philos[i].thread, NULL) != 0)
+			return (printf("%s", ERR_THREAD_JOIN_FAIL), FAILURE);
+		i++;
+	}
+	return (SUCCESS);
+}
 
 int	main(int argc, char **argv)
 {
@@ -46,9 +74,10 @@ int	main(int argc, char **argv)
 		return (FAILURE);
 	if (init_all(&data, argc, argv) == FAILURE)
 		return (FAILURE);
-	data.start_time = get_time();
-	usleep(5000);
-	long test = get_time();
-	printf("Current time: %ld ms\n", test - data.start_time );
+	start_philo(&data);
+	// data.start_time = get_time();
+	// usleep(5000);
+	// long test = get_time();
+	// printf("Current time: %ld ms\n", test - data.start_time );
 	return (SUCCESS);
 }
