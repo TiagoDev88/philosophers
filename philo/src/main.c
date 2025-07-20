@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 19:56:01 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/20 21:38:04 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/20 22:08:02 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,30 @@ void	*philo_routine(void *a)
 {
 	t_philo *philo = (t_philo *)a;
 	pthread_mutex_lock(philo->left_fork);
-	printf("OLA from %d\n", philo->id);
+	printf("PICK left fork from %d\n", philo->id);
+
+	pthread_mutex_lock(philo->right_fork);
+	printf("PICK right fork from %d\n", philo->id);
+
+	pthread_mutex_lock(&philo->data->print_printf);
+	printf("Philo %d is eating\n", philo->id);
+	usleep(philo->data->time_to_eat * 1000);
+	pthread_mutex_unlock(&philo->data->print_printf);
+
+	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
+
+	pthread_mutex_lock(&philo->data->print_printf);
+	printf("Philo %d is sleeping\n", philo->id);
+	usleep(philo->data->time_to_sleep * 1000);
+	pthread_mutex_unlock(&philo->data->print_printf);
+
+	pthread_mutex_lock(&philo->data->print_printf);
+	printf("Philo %d is thinking\n", philo->id);
+	pthread_mutex_unlock(&philo->data->print_printf);
+
+	return (NULL);
+
 
 }
 
@@ -76,6 +98,8 @@ int	main(int argc, char **argv)
 		return (FAILURE);
 	if (init_all(&data, argc, argv) == FAILURE)
 		return (FAILURE);
+	data.start_time = get_time();
+
 	start_dinner(&data);
 	
 	// data.start_time = get_time();

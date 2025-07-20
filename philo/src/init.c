@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:16:21 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/20 21:35:13 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/20 22:06:01 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@ int	init_all(t_data *data, int argc, char** argv)
 		data->must_eat = -1;
 	data->philos = malloc(sizeof(t_philo) * data->num_philos);
 	if (!data->philos)
-		return (printf("malloc philos fail\n"), FAILURE);
+		return (printf("%s", ERR_MUTEX_MALLOC_FAIL), FAILURE);
 	data->forks = malloc(sizeof(t_mtx) * data->num_philos);
 	if (!data->forks)
-		return (printf("malloc forks fail\n"), FAILURE);
+		return (printf("%s", ERR_MUTEX_MALLOC_FAIL), FAILURE);
+	// data->print_printf = malloc(sizeof(t_mtx));
+	// 	return (printf("%s", ERR_MUTEX_MALLOC_FAIL), FAILURE);
 	init_philo(data);
 	return (SUCCESS);
 }
