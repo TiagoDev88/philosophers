@@ -35,4 +35,7 @@ fclean: clean
 
 re: fclean all
 
+teste: re
+	@./philo 5 1000 400 200
+
 .PHONY: all clean fclean re

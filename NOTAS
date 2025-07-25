@@ -55,3 +55,9 @@ pthread_mutex_lock(&garfo[(i + 1) % N]);
 pthread_mutex_unlock(&garfo[i]);
 pthread_mutex_unlock(&garfo[(i + 1) % N]);
 // largou os dois garfos
+
+
+valgrind --tool=helgrind ou --tool=drd ./philo ....
+
+perceber
+lock inversion <----

@@ -8,6 +8,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <limits.h>
+# include <stdbool.h>
 
 # define ERR_ONLY_NUM "ERROR: Only numbers from 1 to INT_MAX allowed\n"
 # define ERR_ARGS "ERROR: Usage: ./philo <num_philos> <time_to_die> \
@@ -30,22 +31,29 @@ typedef struct s_philo
 	int				id;
 	long			last_meal;
 	int				meals_eaten;
-	t_mtx			*left_fork;
-	t_mtx			*right_fork;
-	pthread_t		thread;
+	struct s_fork	*left_fork;
+	struct s_fork	*right_fork;
+	pthread_t		thread_id;
 	struct s_data	*data;
 }				t_philo;
 
+typedef struct s_fork
+{
+	t_mtx			*forks; 
+	int				fork_id; 
+}					t_fork;
+
 typedef struct s_data
 {
-	int				num_philos;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				must_eat;
-	long			start_time;
+	long			num_philos; 
+	long			time_to_die; 
+	long			time_to_eat; 
+	long			time_to_sleep; 
+	long			must_eat;
+	long			start_routine; 
+	bool			end_routine;
 	t_philo			*philos;
-	t_mtx			*forks;
+	t_fork			*forks;
 	t_mtx			print_printf;
 } t_data;
 
