@@ -31,17 +31,12 @@ typedef struct s_philo
 	int				id;
 	long			last_meal;
 	int				meals_eaten;
-	struct s_fork	*left_fork;
-	struct s_fork	*right_fork;
+	t_mtx			*left_fork;
+	t_mtx			*right_fork;
 	pthread_t		thread_id;
 	struct s_data	*data;
 }				t_philo;
 
-typedef struct s_fork
-{
-	t_mtx			*forks; 
-	int				fork_id; 
-}					t_fork;
 
 typedef struct s_data
 {
@@ -53,7 +48,7 @@ typedef struct s_data
 	long			start_routine; 
 	bool			end_routine;
 	t_philo			*philos;
-	t_fork			*forks;
+	t_mtx			*forks;
 	t_mtx			print_printf;
 } t_data;
 
