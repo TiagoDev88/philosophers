@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 19:56:01 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/28 18:15:05 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/28 20:05:31 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void print_message(t_philo *philo, const char *message)
 void	*philo_routine(void *arg)
 {
 	t_philo *philo = (t_philo *)arg;
-	while (1)
+	while (!philo->data->end_routine)
 	{
 		// long soma_tmd = (get_time() - philo->last_meal);
 		// printf("soma %ld\n", soma_tmd);
@@ -58,33 +58,37 @@ void	*philo_routine(void *arg)
 		// }
 		// if (philo->id % 2 == 0)
 		// 	usleep(1000);
-		pthread_mutex_lock(philo->left_fork);
-		print_message(philo, "has taken a fork LEFT");
-		pthread_mutex_lock(philo->right_fork);
-		print_message(philo, "has taken a fork RIGHT");
-		
+		if (philo->id % 2 == 0)
+		{
+			pthread_mutex_lock(philo->left_fork);
+			print_message(philo, "has taken a fork");
+			pthread_mutex_lock(philo->right_fork);
+			print_message(philo, "has taken a fork");
+		}
+		else
+		{
+			pthread_mutex_lock(philo->right_fork);
+			print_message(philo, "has taken a fork");
+			pthread_mutex_lock(philo->left_fork);
+			print_message(philo, "has taken a fork");
+		}	
 		//talvez fazer a contagem de refeicoes, dar um lock?
-		philo->last_meal = get_time();
-		// dar um unlock?
 		print_message(philo, "is eating");
-		
+		philo->last_meal = get_time();
+		philo->meals_eaten++;
+		// dar um unlock?
 		usleep(philo->data->time_to_eat * 1000);
+		
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 
-		pthread_mutex_lock(&philo->data->print_printf);
 		printf("%ld %d is sleeping\n", (get_time() - philo->data->start_routine), philo->id);
 		usleep(philo->data->time_to_sleep * 1000);
-		pthread_mutex_unlock(&philo->data->print_printf);
 
-		pthread_mutex_lock(&philo->data->print_printf);
 		printf("%ld %d is thinking\n", (get_time() - philo->data->start_routine), philo->id);
-		pthread_mutex_unlock(&philo->data->print_printf);
+
 	}
-
 	return (NULL);
-
-
 }
 
 
@@ -109,15 +113,13 @@ int 	start_dinner(t_data *data)
 int	main(int argc, char **argv)
 {
 	t_data	data;
+
 	memset(&data, 0, sizeof(t_data));
 
 	if (check_args(argc, argv) == FAILURE)
 		return (FAILURE);
 	if (init_all(&data, argc, argv) == FAILURE)
 		return (FAILURE);
-
-
-	
 	start_dinner(&data);
 	
 	int	i = 0;

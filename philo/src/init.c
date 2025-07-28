@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:16:21 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/28 15:32:30 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/28 19:54:28 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	init_all(t_data *data, int argc, char** argv)
 	data->forks = malloc(sizeof(t_mtx) * data->num_philos);
 	if (!data->forks)
 		return (printf("%s", ERR_MUTEX_MALLOC_FAIL), FAILURE);
-
+	data->end_routine = false;
 	// int i = 0;
 	// while (i < data->num_philos)
 	// {
