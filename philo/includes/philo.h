@@ -19,6 +19,7 @@
 # define ERR_THREAD_JOIN_FAIL "Failed to join thread for philosopher\n"
 
 typedef pthread_mutex_t		t_mtx;
+typedef struct s_data t_data;
 
 typedef enum e_code
 {

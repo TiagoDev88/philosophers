@@ -2,7 +2,9 @@
 NAME = philo
 
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread -I includes
+CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread -I includes
+# CFLAGS = -Wall -Wextra -Werror -pthread  -I includes
+
 
 SRC_DIR = src
 
@@ -36,6 +38,6 @@ fclean: clean
 re: fclean all
 
 teste: re
-	@./philo 5 1000 400 200
+	@./philo 5 800 400 200
 
 .PHONY: all clean fclean re

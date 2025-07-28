@@ -37,3 +37,7 @@ and X with the philosopher number.
 • A displayed state message should not overlap with another message.
 • A message announcing a philosopher’s death must be displayed within 10 ms of
 their actual death.
+
+
+todos pegarem no da esquerda, menos o ultimo. O ultimo comeca pela direita. <- uma tecnica
+se o index comeca por impar comeca pela esq ou direita e vice versa <- outra tecnica

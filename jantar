@@ -1,15 +1,15 @@
 
 
 
-				philo 1			
+				philo 0			
 						fork 0
 		fork 4
-								philo 2
+								philo 1
 	
-	philo 5					fork 1
+	philo 4					fork 1
 
-		fork 3				philo 3
+		fork 3				philo 2
 
 						fork 2
 
-				philo 4
+				philo 3

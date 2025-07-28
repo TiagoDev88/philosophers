@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:16:21 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/27 17:44:43 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/28 15:32:30 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,15 @@ int	init_philo(t_data *data)
 		data->philos[i].meals_eaten = 0;
 		data->philos[i].left_fork = &data->forks[(i + 1) % data->num_philos]; //aqui tive que trocar por causa da posicao esq ou direita
 		data->philos[i].right_fork = &data->forks[i];
+		data->philos[i].data = data;
 		i++;
 	}
-	i = 0;
-	while (i < data->num_philos)
-	{
-		printf("id: philo %d fork esq %p e o direito %p\n", data->philos[i].id, data->philos[i].left_fork, data->philos[i].right_fork);
-		i++;
-	}
+	// i = 0;
+	// while (i < data->num_philos)
+	// {
+	// 	printf("id: philo %d fork esq %p e o direito %p\n", data->philos[i].id, data->philos[i].left_fork, data->philos[i].right_fork);
+	// 	i++;
+	// }
 	return (SUCCESS);
 }
 
@@ -58,6 +59,13 @@ int	init_all(t_data *data, int argc, char** argv)
 	data->forks = malloc(sizeof(t_mtx) * data->num_philos);
 	if (!data->forks)
 		return (printf("%s", ERR_MUTEX_MALLOC_FAIL), FAILURE);
+
+	// int i = 0;
+	// while (i < data->num_philos)
+	// {
+	// 	printf("philos no init %p\n", &data->philos[i]);
+	// 	i++;
+	// }
 	// data->print_printf = malloc(sizeof(t_mtx));
 	// 	return (printf("%s", ERR_MUTEX_MALLOC_FAIL), FAILURE);
 
