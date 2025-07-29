@@ -18,7 +18,7 @@
 # define ERR_THREAD_CREATE_FAIL "ERROR: Failed to create thread for philosopher\n"
 # define ERR_THREAD_JOIN_FAIL "Failed to join thread for philosopher\n"
 
-typedef pthread_mutex_t		t_mtx;
+typedef pthread_mutex_t		t_mutex;
 typedef struct s_data t_data;
 
 typedef enum e_code
@@ -32,8 +32,8 @@ typedef struct s_philo
 	int				id;
 	long			last_meal;
 	int				meals_eaten;
-	t_mtx			*left_fork;
-	t_mtx			*right_fork;
+	t_mutex			*left_fork;
+	t_mutex			*right_fork;
 	pthread_t		thread_id;
 	struct s_data	*data;
 }				t_philo;
@@ -49,8 +49,11 @@ typedef struct s_data
 	long			start_routine; 
 	bool			end_routine;
 	t_philo			*philos;
-	t_mtx			*forks;
-	t_mtx			print_printf;
+	t_mutex			*forks;
+	t_mutex			print;
+	t_mutex			mutex_end_routine;
+	t_mutex			mutex_meal;
+	pthread_t		monitor;
 } t_data;
 
 /* utils.c */

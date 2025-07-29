@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:16:21 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/28 19:54:28 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/29 19:01:43 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int	init_philo(t_data *data)
 		data->philos[i].data = data;
 		i++;
 	}
-	// i = 0;
-	// while (i < data->num_philos)
-	// {
-	// 	printf("id: philo %d fork esq %p e o direito %p\n", data->philos[i].id, data->philos[i].left_fork, data->philos[i].right_fork);
-	// 	i++;
-	// }
+	if (pthread_mutex_init(&data->mutex_end_routine, NULL) != 0)
+		return (printf("%s", ERR_MUTEX_FAIL), FAILURE);
+	if (pthread_mutex_init(&data->mutex_meal, NULL) != 0)
+		return (printf("%s", ERR_MUTEX_FAIL), FAILURE);
+	if (pthread_mutex_init(&data->print, NULL) != 0)
+		return (printf("%s", ERR_MUTEX_FAIL), FAILURE);
 	return (SUCCESS);
 }
 
@@ -56,19 +56,13 @@ int	init_all(t_data *data, int argc, char** argv)
 	data->philos = malloc(sizeof(t_philo) * data->num_philos);
 	if (!data->philos)
 		return (printf("ERROR: Malloc t_philo failed\n"), FAILURE);
-	data->forks = malloc(sizeof(t_mtx) * data->num_philos);
+	data->forks = malloc(sizeof(t_mutex) * data->num_philos);
 	if (!data->forks)
 		return (printf("%s", ERR_MUTEX_MALLOC_FAIL), FAILURE);
 	data->end_routine = false;
-	// int i = 0;
-	// while (i < data->num_philos)
-	// {
-	// 	printf("philos no init %p\n", &data->philos[i]);
-	// 	i++;
-	// }
-	// data->print_printf = malloc(sizeof(t_mtx));
-	// 	return (printf("%s", ERR_MUTEX_MALLOC_FAIL), FAILURE);
 
 	init_philo(data);
+	// if (!init_philo(data))
+		// return (FAILURE);
 	return (SUCCESS);
 }
