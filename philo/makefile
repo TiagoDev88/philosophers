@@ -38,6 +38,6 @@ fclean: clean
 re: fclean all
 
 teste: re
-	@./philo 5 800 400 200
+	@./philo 5 810 400 200
 
 .PHONY: all clean fclean re

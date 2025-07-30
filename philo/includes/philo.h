@@ -48,11 +48,13 @@ typedef struct s_data
 	long			must_eat;
 	long			start_routine; 
 	bool			end_routine;
+	bool			started;
 	t_philo			*philos;
 	t_mutex			*forks;
-	t_mutex			print;
+	t_mutex			mutex_print;
 	t_mutex			mutex_end_routine;
 	t_mutex			mutex_meal;
+	t_mutex			mutex_start;
 	pthread_t		monitor;
 } t_data;
 

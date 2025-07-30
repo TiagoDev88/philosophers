@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:16:21 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/29 19:01:43 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/30 11:40:45 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ int	init_philo(t_data *data)
 		return (printf("%s", ERR_MUTEX_FAIL), FAILURE);
 	if (pthread_mutex_init(&data->mutex_meal, NULL) != 0)
 		return (printf("%s", ERR_MUTEX_FAIL), FAILURE);
-	if (pthread_mutex_init(&data->print, NULL) != 0)
+	if (pthread_mutex_init(&data->mutex_print, NULL) != 0)
+		return (printf("%s", ERR_MUTEX_FAIL), FAILURE);
+	if (pthread_mutex_init(&data->mutex_start, NULL) != 0)
 		return (printf("%s", ERR_MUTEX_FAIL), FAILURE);
 	return (SUCCESS);
 }
@@ -60,9 +62,9 @@ int	init_all(t_data *data, int argc, char** argv)
 	if (!data->forks)
 		return (printf("%s", ERR_MUTEX_MALLOC_FAIL), FAILURE);
 	data->end_routine = false;
+	data->started = false;
 
-	init_philo(data);
-	// if (!init_philo(data))
-		// return (FAILURE);
+	if (init_philo(data) == FAILURE)
+    	return (FAILURE);
 	return (SUCCESS);
 }
