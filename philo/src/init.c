@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:16:21 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/30 11:40:45 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/07/31 14:43:24 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	init_all(t_data *data, int argc, char** argv)
 	if (!data->forks)
 		return (printf("%s", ERR_MUTEX_MALLOC_FAIL), FAILURE);
 	data->end_routine = false;
-	data->started = false;
 
 	if (init_philo(data) == FAILURE)
     	return (FAILURE);

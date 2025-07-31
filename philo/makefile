@@ -8,7 +8,7 @@ CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread -I includes
 
 SRC_DIR = src
 
-SRC_MAIN	=	main.c init.c
+SRC_MAIN	=	main.c init.c start_routine.c
 # SRC_MAIN	=	main_thread.c
 SRC_UTILS	=	$(addprefix utils/, utils.c)
 
