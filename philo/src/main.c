@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 19:56:01 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/31 14:49:32 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:02:04 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,14 @@ int check_args(int argc, char **argv)
 // somo os os dois valores para obter o tempo total em milissegundos
 long get_time()
 {
-	long res;
+	// long res;
 	struct timeval time;
 
-	res = 0;
+	// res = 0;
 	gettimeofday(&time, NULL);
-	res += time.tv_sec * 1000 + time.tv_usec / 1000;
-	return (res);
+	// res += time.tv_sec * 1000 + time.tv_usec / 1000;
+	// return (res);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
 void print_message(t_philo *philo, const char *message)
@@ -70,8 +71,6 @@ int free_all(t_data *data)
 	pthread_mutex_destroy(&data->mutex_end_routine);
 	pthread_mutex_destroy(&data->mutex_meal);
 	pthread_mutex_destroy(&data->mutex_print);
-	pthread_mutex_destroy(&data->mutex_start);
-
 	return (SUCCESS);
 }
 int	main(int argc, char **argv)

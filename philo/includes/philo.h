@@ -31,7 +31,7 @@ typedef struct s_philo
 {
 	int				id;
 	long			last_meal;
-	int				meals_eaten;
+	long			meals_eaten;
 	t_mutex			*left_fork;
 	t_mutex			*right_fork;
 	pthread_t		thread_id;
@@ -53,7 +53,6 @@ typedef struct s_data
 	t_mutex			mutex_print;
 	t_mutex			mutex_end_routine;
 	t_mutex			mutex_meal;
-	t_mutex			mutex_start;
 	pthread_t		monitor;
 } t_data;
 
@@ -66,6 +65,9 @@ int		init_philo(t_data *data);
 int		init_all(t_data *data, int argc, char **argv);
 /* main.c */
 int		check_args(int argc, char **argv);
+void print_message(t_philo *philo, const char *message);
+int		free_all(t_data *data);
+long	get_time(void);
 /* start_routine*/
 int		start_dinner(t_data *data);
 

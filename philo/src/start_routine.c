@@ -6,11 +6,12 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 14:46:08 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/31 14:48:59 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:09:45 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
 
 static void ft_eat(t_philo *philo)
 {
@@ -44,10 +45,10 @@ static void ft_sleep(t_philo *philo)
 	usleep(philo->data->time_to_sleep * 1000);
 }
 
-// void ft_think(t_philo *philo)
-// {
-// 	print_message(philo, "is thinking");
-// }
+void ft_think(t_philo *philo)
+{
+	print_message(philo, "is thinking");
+}
 
 static void	*philo_routine(void *arg)
 {
@@ -56,9 +57,9 @@ static void	*philo_routine(void *arg)
 	pthread_mutex_lock(&philo->data->mutex_meal);
 	philo->last_meal = philo->data->start_routine;
 	pthread_mutex_unlock(&philo->data->mutex_meal);
-	while (1)
-	{		
 
+	while (1)
+	{
 		pthread_mutex_lock(&philo->data->mutex_end_routine);
 		if (philo->data->end_routine == true)
 		{
@@ -68,12 +69,12 @@ static void	*philo_routine(void *arg)
 		pthread_mutex_unlock(&philo->data->mutex_end_routine);
 		ft_eat(philo);
 		ft_sleep(philo);
-		print_message(philo, "is thinking");
+		ft_think(philo);
 	}
 	return (NULL);
 }
 
-static *monitor_routine(void *arg)
+static void *monitor_routine(void *arg)
 {
 	t_data *data = (t_data *)arg;
 	int i;
@@ -106,7 +107,7 @@ static *monitor_routine(void *arg)
 			pthread_mutex_unlock(&data->mutex_meal);
 			i++;
 		}
-		usleep(100);
+		usleep(500);
 	}
 	return NULL;
 }
