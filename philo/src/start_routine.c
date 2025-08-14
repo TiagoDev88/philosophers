@@ -78,6 +78,7 @@ static void *monitor_routine(void *arg)
 {
 	t_data *data = (t_data *)arg;
 	int i;
+	int j;
 
 	while (1)
 	{
@@ -101,8 +102,33 @@ static void *monitor_routine(void *arg)
 				printf("%ld %d %s\n", (get_time() - data->start_routine), data->philos[i].id, "died");
 				pthread_mutex_unlock(&data->mutex_print);
 				pthread_mutex_unlock(&data->mutex_end_routine);
-
-				return NULL;
+				return (NULL);
+			}
+			pthread_mutex_unlock(&data->mutex_meal);
+			i++;
+		}
+		i = 0;
+		j = 0;
+		while (i < data->num_philos)
+		{
+			pthread_mutex_lock(&data->mutex_meal);
+			if (data->must_eat == data->philos[i].meals_eaten)
+			{
+				pthread_mutex_unlock(&data->mutex_meal);
+				j++;
+				pthread_mutex_lock(&data->mutex_meal);
+				if (j == data->must_eat)
+				{
+					pthread_mutex_unlock(&data->mutex_meal);
+					pthread_mutex_lock(&data->mutex_end_routine);
+					pthread_mutex_lock(&data->mutex_print);
+					data->end_routine = true;
+					printf("%ld %s\n", (get_time() - data->start_routine), "comeram todos");
+					pthread_mutex_unlock(&data->mutex_print);
+					pthread_mutex_unlock(&data->mutex_end_routine);
+					return (NULL);
+				}
+				pthread_mutex_unlock(&data->mutex_meal);
 			}
 			pthread_mutex_unlock(&data->mutex_meal);
 			i++;
