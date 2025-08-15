@@ -12,6 +12,21 @@
 
 #include "../includes/philo.h"
 
+static void my_sleep(long time_to)
+{
+    long start_time;
+    long current_time;
+
+    start_time = get_time();
+    while (1)
+    {
+        usleep(100);
+        current_time = get_time();
+        if ((current_time - start_time) >= time_to)
+            break;
+    }
+}
+
 
 static void ft_eat(t_philo *philo)
 {
@@ -34,7 +49,7 @@ static void ft_eat(t_philo *philo)
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->data->mutex_meal);
 	print_message(philo, "is eating");
-	usleep(philo->data->time_to_eat * 1000);
+	my_sleep(philo->data->time_to_eat);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 }
@@ -42,7 +57,7 @@ static void ft_eat(t_philo *philo)
 static void ft_sleep(t_philo *philo)
 {
 	print_message(philo, "is sleeping");
-	usleep(philo->data->time_to_sleep * 1000);
+	my_sleep(philo->data->time_to_sleep);
 }
 
 void ft_think(t_philo *philo)
@@ -116,10 +131,8 @@ static void *monitor_routine(void *arg)
 			{
 				pthread_mutex_unlock(&data->mutex_meal);
 				j++;
-				pthread_mutex_lock(&data->mutex_meal);
-				if (j == data->must_eat)
+				if (j == data->num_philos)
 				{
-					pthread_mutex_unlock(&data->mutex_meal);
 					pthread_mutex_lock(&data->mutex_end_routine);
 					pthread_mutex_lock(&data->mutex_print);
 					data->end_routine = true;
@@ -128,7 +141,6 @@ static void *monitor_routine(void *arg)
 					pthread_mutex_unlock(&data->mutex_end_routine);
 					return (NULL);
 				}
-				pthread_mutex_unlock(&data->mutex_meal);
 			}
 			pthread_mutex_unlock(&data->mutex_meal);
 			i++;
