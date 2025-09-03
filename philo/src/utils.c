@@ -6,11 +6,11 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 12:17:36 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/07/31 14:49:24 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/09/03 12:03:14 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/philo.h"
+#include "../includes/philo.h"
 
 int	ft_atoi(const char *str)
 {
@@ -87,5 +87,3 @@ int	only_num(char **argv)
 	}
 	return (1);
 }
-
-

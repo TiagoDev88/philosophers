@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 14:46:08 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/08/01 13:09:45 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/09/03 12:14:47 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ static void	*philo_routine(void *arg)
 	pthread_mutex_lock(&philo->data->mutex_meal);
 	philo->last_meal = philo->data->start_routine;
 	pthread_mutex_unlock(&philo->data->mutex_meal);
-
+	if (philo->data->num_philos == 1)
+		return (NULL);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->data->mutex_end_routine);
@@ -129,16 +130,16 @@ static void *monitor_routine(void *arg)
 			pthread_mutex_lock(&data->mutex_meal);
 			if (data->must_eat == data->philos[i].meals_eaten)
 			{
-				pthread_mutex_unlock(&data->mutex_meal);
 				j++;
 				if (j == data->num_philos)
 				{
 					pthread_mutex_lock(&data->mutex_end_routine);
 					pthread_mutex_lock(&data->mutex_print);
 					data->end_routine = true;
-					printf("%ld %s\n", (get_time() - data->start_routine), "comeram todos");
+					printf("%ld %s\n", (get_time() - data->start_routine), "COMERAM TODOS!!!!!!!!!!");
 					pthread_mutex_unlock(&data->mutex_print);
 					pthread_mutex_unlock(&data->mutex_end_routine);
+					pthread_mutex_unlock(&data->mutex_meal);
 					return (NULL);
 				}
 			}
