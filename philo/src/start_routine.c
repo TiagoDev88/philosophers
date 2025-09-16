@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 14:46:08 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/09/16 19:51:46 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/09/16 19:57:14 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static void	*philo_routine(void *arg)
 	pthread_mutex_lock(&philo->data->mutex_meal);
 	philo->last_meal = philo->data->start_routine;
 	pthread_mutex_unlock(&philo->data->mutex_meal);
-	if (philo->data->num_philos == 1)
-		return (NULL);
+	// if (philo->data->num_philos == 1)
+	// 	return (NULL);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->data->mutex_end_routine);
