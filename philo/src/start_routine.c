@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 14:46:08 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/09/16 18:37:46 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/09/16 19:14:29 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static void	*philo_routine(void *arg)
 {
-	t_philo *philo = (t_philo *)arg;
+	t_philo *philo;
 
+	philo = (t_philo *)arg;
 	pthread_mutex_lock(&philo->data->mutex_meal);
 	philo->last_meal = philo->data->start_routine;
 	pthread_mutex_unlock(&philo->data->mutex_meal);
@@ -37,10 +38,32 @@ static void	*philo_routine(void *arg)
 	return (NULL);
 }
 
-// static int monitor_check_died(t_data *data)
-// {
-	
-// }
+static int monitor_check_died(t_data *data)
+{
+	int i;
+	long time_now;
+
+	i = 0;
+	while (i < data->num_philos)
+	{
+		pthread_mutex_lock(&data->mutex_meal);
+		time_now = ft_get_time();
+		if ((time_now - data->philos[i].last_meal) >= data->time_to_die)
+		{
+			pthread_mutex_lock(&data->mutex_end_routine);
+			pthread_mutex_lock(&data->mutex_print);
+			data->end_routine = true;
+			printf("%ld %d %s\n", (time_now - data->start_routine), data->philos[i].id, "MORREU!!!!!!!!!!");
+			pthread_mutex_unlock(&data->mutex_print);
+			pthread_mutex_unlock(&data->mutex_end_routine);
+			pthread_mutex_unlock(&data->mutex_meal);
+			return (SUCCESS);
+		}
+		pthread_mutex_unlock(&data->mutex_meal);
+		i++;
+	}
+	return (FAILURE);
+}
 
 static int monitor_meals_count(t_data *data)
 {
@@ -65,7 +88,6 @@ static int monitor_meals_count(t_data *data)
 		printf("%ld %s\n", (ft_get_time() - data->start_routine), "COMERAM TODOS!!!!!!!!!!");
 		pthread_mutex_unlock(&data->mutex_print);
 		pthread_mutex_unlock(&data->mutex_end_routine);
-		pthread_mutex_unlock(&data->mutex_meal);
 		return (SUCCESS);
 	}
 	return (FAILURE);
@@ -73,9 +95,9 @@ static int monitor_meals_count(t_data *data)
 
 static void *monitor_routine(void *arg)
 {
-	t_data *data = (t_data *)arg;
-	int i;
+	t_data *data;
 
+	data = (t_data *)arg;
 	while (1)
 	{
 		pthread_mutex_lock(&data->mutex_end_routine);
@@ -85,30 +107,13 @@ static void *monitor_routine(void *arg)
 			break;
 		}
 		pthread_mutex_unlock(&data->mutex_end_routine);
-		i = 0;
-		while (i < data->num_philos)
-		{
-			pthread_mutex_lock(&data->mutex_meal);
-			if (ft_get_time() - data->philos[i].last_meal > data->time_to_die)
-			{
-				pthread_mutex_unlock(&data->mutex_meal);
-				pthread_mutex_lock(&data->mutex_end_routine);
-				pthread_mutex_lock(&data->mutex_print);
-				data->end_routine = true;
-				printf("%ld %d %s\n", (ft_get_time() - data->start_routine), data->philos[i].id, "died");
-				pthread_mutex_unlock(&data->mutex_print);
-				pthread_mutex_unlock(&data->mutex_end_routine);
-				return (NULL);
-			}
-			pthread_mutex_unlock(&data->mutex_meal);
-			i++;
-		}
-		// count da comida
+		if (monitor_check_died(data) == SUCCESS)
+			return (NULL);
 		if (monitor_meals_count(data) == SUCCESS)
 			return (NULL);
 		usleep(500);
 	}
-	return NULL;
+	return (NULL);
 }
 
 int	start_dinner(t_data *data)
