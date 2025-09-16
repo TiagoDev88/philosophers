@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 14:46:08 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/09/16 19:14:29 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/09/16 19:51:46 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int monitor_check_died(t_data *data)
 			pthread_mutex_lock(&data->mutex_end_routine);
 			pthread_mutex_lock(&data->mutex_print);
 			data->end_routine = true;
-			printf("%ld %d %s\n", (time_now - data->start_routine), data->philos[i].id, "MORREU!!!!!!!!!!");
+			printf("%ld %d %s\n", (time_now - data->start_routine), data->philos[i].id, "died");
 			pthread_mutex_unlock(&data->mutex_print);
 			pthread_mutex_unlock(&data->mutex_end_routine);
 			pthread_mutex_unlock(&data->mutex_meal);
