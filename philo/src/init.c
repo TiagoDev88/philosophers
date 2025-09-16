@@ -6,11 +6,22 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:16:21 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/08/01 13:00:49 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/09/16 18:05:04 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+static int	mutex_init(t_data *data)
+{
+	if (pthread_mutex_init(&data->mutex_end_routine, NULL) != 0)
+		return (FAILURE);
+	if (pthread_mutex_init(&data->mutex_meal, NULL) != 0)
+		return (FAILURE);
+	if (pthread_mutex_init(&data->mutex_print, NULL) != 0)
+		return (FAILURE);
+	return (SUCCESS);
+}
 
 int	init_philo(t_data *data)
 {
@@ -34,13 +45,10 @@ int	init_philo(t_data *data)
 		data->philos[i].data = data;
 		i++;
 	}
-	if (pthread_mutex_init(&data->mutex_end_routine, NULL) != 0)
+	if (mutex_init(data) != 0)
 		return (printf("%s", ERR_MUTEX_FAIL), FAILURE);
-	if (pthread_mutex_init(&data->mutex_meal, NULL) != 0)
-		return (printf("%s", ERR_MUTEX_FAIL), FAILURE);
-	if (pthread_mutex_init(&data->mutex_print, NULL) != 0)
-		return (printf("%s", ERR_MUTEX_FAIL), FAILURE);
-	return (SUCCESS);
+	else
+		return (SUCCESS);
 }
 
 int	init_all(t_data *data, int argc, char** argv)

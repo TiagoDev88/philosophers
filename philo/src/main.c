@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 19:56:01 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/08/01 13:02:04 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/09/16 18:09:01 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int check_args(int argc, char **argv)
 // tv_sec * 1000 para passar para milissegundos
 // tv_usec / 1000 para passar para milissegundos
 // somo os os dois valores para obter o tempo total em milissegundos
-long get_time()
+long ft_get_time()
 {
 	// long res;
 	struct timeval time;
@@ -42,7 +42,7 @@ void print_message(t_philo *philo, const char *message)
 	pthread_mutex_lock(&philo->data->mutex_end_routine);
 	pthread_mutex_lock(&philo->data->mutex_print);
 	if (philo->data->end_routine == false)
-		printf("%ld %d %s\n", get_time() - philo->data->start_routine, philo->id, message);
+		printf("%ld %d %s\n", ft_get_time() - philo->data->start_routine, philo->id, message);
 	pthread_mutex_unlock(&philo->data->mutex_print);
 	pthread_mutex_unlock(&philo->data->mutex_end_routine);
 }
@@ -73,6 +73,7 @@ int free_all(t_data *data)
 	pthread_mutex_destroy(&data->mutex_print);
 	return (SUCCESS);
 }
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -83,7 +84,6 @@ int	main(int argc, char **argv)
 		return (FAILURE);
 	if (init_all(&data, argc, argv) == FAILURE)
 		return (FAILURE);
-	
 	if (start_dinner(&data) == FAILURE)
 	{
 		free_all(&data);

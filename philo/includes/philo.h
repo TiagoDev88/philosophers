@@ -67,8 +67,13 @@ int		init_all(t_data *data, int argc, char **argv);
 int		check_args(int argc, char **argv);
 void print_message(t_philo *philo, const char *message);
 int		free_all(t_data *data);
-long	get_time(void);
+long	ft_get_time(void);
 /* start_routine*/
 int		start_dinner(t_data *data);
+/* utils_start_routine.c */
+void my_sleep(long time_to);
+void ft_eat(t_philo *philo);
+void ft_sleep(t_philo *philo);
+void ft_think(t_philo *philo);
 
 #endif
