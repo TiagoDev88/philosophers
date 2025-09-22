@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 19:56:01 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/09/22 16:18:01 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/09/22 17:49:32 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	check_args(int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 		return (printf("%s", ERR_ARGS), FAILURE);
+	if (ft_atoi(argv[1]) <= 0)
+		return (printf("%s", ERR_PHILO_NUM), FAILURE);
 	if (!only_num(argv))
 		return (printf("%s", ERR_ONLY_NUM), FAILURE);
 	return (SUCCESS);
