@@ -2,8 +2,9 @@
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread -I includes
-# CFLAGS = -Wall -Wextra -Werror -pthread  -I includes
+# CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread -I includes
+# CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=address -I includes
+CFLAGS = -Wall -Wextra -Werror -pthread  -I includes
 
 
 SRC_DIR = src
@@ -38,6 +39,8 @@ fclean: clean
 	@echo "fclean: executable removed"
 
 re: fclean all
+
+leak:
 
 teste: re
 	@./philo 5 800 200 200
