@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:11:21 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/09/22 17:49:58 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/09/22 18:05:04 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <stdbool.h>
 
 # define ERR_ONLY_NUM "ERROR: Only numbers from 1 to INT_MAX allowed\n"
-# define ERR_PHILO_NUM "ERROR: Number of philosophers must be greater than 0\n"
 # define ERR_ARGS "ERROR: Usage: ./philo <num_philos> <time_to_die> \
 <time_to_eat> <time_to_sleep> OPTIONAL-> [<must_eat>]\n"
 # define ERR_MUTEX_FAIL "ERROR: Mutex Failed\n"

@@ -4,17 +4,15 @@ NAME = philo
 CC = cc
 # CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread -I includes
 # CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=address -I includes
-CFLAGS = -Wall -Wextra -Werror -pthread  -I includes
+CFLAGS = -Wall -Wextra -Werror -pthread -I includes
 
 
 SRC_DIR = src
 SRC_OBJ = obj
 
-SRC_MAIN	=	main.c init.c start_routine.c utils.c utils_start_routine.c
-# SRC_MAIN	=	main_thread.c
-# SRC_UTILS	=	$(addprefix utils/, utils.c)
+SRC	=	main.c init.c start_routine.c utils.c utils_start_routine.c
 
-SRCS = $(addprefix $(SRC_DIR)/, $(SRC_MAIN) $(SRC_UTILS))
+SRCS = $(addprefix $(SRC_DIR)/, $(SRC) $(SRC_UTILS))
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(SRC_OBJ)/%.o)
 
@@ -40,12 +38,10 @@ fclean: clean
 
 re: fclean all
 
-leak:
-
 teste: re
 	@./philo 5 800 200 200
 
 teste1: re
 	@./philo 5 800 200 200 3
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re teste teste1
