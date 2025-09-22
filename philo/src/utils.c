@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 12:17:36 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/09/03 12:03:14 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/09/22 15:16:55 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int	ft_atoi(const char *str)
 	return (result * signal);
 }
 
-int ft_atol(char* s)
+int	ft_atol(char *s)
 {
-	long res;
-	int signal;
-	int i;
+	long	res;
+	int		signal;
+	int		i;
 
 	i = 0;
 	signal = 1;
@@ -64,9 +64,9 @@ int ft_atol(char* s)
 
 int	only_num(char **argv)
 {
-	int	i;
-	int j;
-	long tmp;
+	int		i;
+	int		j;
+	long	tmp;
 
 	i = 1;
 	while (argv[i])

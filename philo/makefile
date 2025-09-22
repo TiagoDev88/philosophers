@@ -7,6 +7,7 @@ CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread -I includes
 
 
 SRC_DIR = src
+SRC_OBJ = obj
 
 SRC_MAIN	=	main.c init.c start_routine.c utils.c utils_start_routine.c
 # SRC_MAIN	=	main_thread.c
@@ -14,13 +15,14 @@ SRC_MAIN	=	main.c init.c start_routine.c utils.c utils_start_routine.c
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC_MAIN) $(SRC_UTILS))
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:$(SRC_DIR)/%.c=$(SRC_OBJ)/%.o)
 
-RM = rm -f
+RM = rm -rf
 
 all: $(NAME)
 
-$(SRC_DIR)/%.o: $(SRC_DIR)/%.c
+$(SRC_OBJ)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(SRC_OBJ)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
@@ -28,11 +30,11 @@ $(NAME): $(OBJS)
 	@echo "✅  $(NAME) Compiled successfully!"
 
 clean:
-	@$(RM) $(OBJS)
+	@$(RM) $(SRC_OBJ)
 	@echo "clean: object files removed"
 
 fclean: clean
-	@$(RM) $(NAME)
+	@$(RM) $(NAME) $(SRC_OBJ)
 	@echo "fclean: executable removed"
 
 re: fclean all

@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/22 15:11:21 by tfilipe-          #+#    #+#             */
+/*   Updated: 2025/09/22 16:16:02 by tfilipe-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
-#define PHILO_H
+# define PHILO_H
 
 # include <pthread.h>
 # include <sys/time.h>
@@ -15,11 +27,11 @@
 <time_to_eat> <time_to_sleep> OPTIONAL-> [<must_eat>]\n"
 # define ERR_MUTEX_FAIL "ERROR: Mutex Failed\n"
 # define ERR_MUTEX_MALLOC_FAIL "ERROR: Malloc Mutex Failed\n"
-# define ERR_THREAD_CREATE_FAIL "ERROR: Failed to create thread for philosopher\n"
+# define ERR_THREAD_CREATE_FAIL "ERROR: Failed to create thread for philo\n"
 # define ERR_THREAD_JOIN_FAIL "Failed to join thread for philosopher\n"
 
-typedef pthread_mutex_t		t_mutex;
-typedef struct s_data t_data;
+typedef pthread_mutex_t	t_mutex;
+typedef struct s_data	t_data;
 
 typedef enum e_code
 {
@@ -38,23 +50,22 @@ typedef struct s_philo
 	struct s_data	*data;
 }				t_philo;
 
-
 typedef struct s_data
 {
-	long			num_philos; 
-	long			time_to_die; 
-	long			time_to_eat; 
-	long			time_to_sleep; 
+	long			num_philos;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
 	long			must_eat;
-	long			start_routine; 
+	long			start_routine;
 	bool			end_routine;
-	t_philo			*philos;
+	t_philo			*philo;
 	t_mutex			*forks;
 	t_mutex			mutex_print;
 	t_mutex			mutex_end_routine;
 	t_mutex			mutex_meal;
 	pthread_t		monitor;
-} t_data;
+}	t_data;
 
 /* utils.c */
 int		ft_atoi(const char *str);
@@ -65,15 +76,16 @@ int		init_philo(t_data *data);
 int		init_all(t_data *data, int argc, char **argv);
 /* main.c */
 int		check_args(int argc, char **argv);
-void print_message(t_philo *philo, const char *message);
+void	print_message(t_philo *ph, const char *msg);
 int		free_all(t_data *data);
-long	ft_get_time(void);
+long	get_time(void);
 /* start_routine*/
 int		start_dinner(t_data *data);
 /* utils_start_routine.c */
-void my_sleep(long time_to);
-void ft_eat(t_philo *philo);
-void ft_sleep(t_philo *philo);
-void ft_think(t_philo *philo);
+void	my_sleep(long time_to);
+void	ft_eat(t_philo *philo);
+void	ft_sleep(t_philo *philo);
+void	ft_think(t_philo *philo);
+void	one_philo(t_philo *philo);
 
 #endif

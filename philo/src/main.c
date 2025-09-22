@@ -6,13 +6,13 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 19:56:01 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/09/16 18:09:01 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/09/22 16:18:01 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int check_args(int argc, char **argv)
+int	check_args(int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 		return (printf("%s", ERR_ARGS), FAILURE);
@@ -21,42 +21,35 @@ int check_args(int argc, char **argv)
 	return (SUCCESS);
 }
 
-//TODO tv_sec para segundos, e tv_usec para microssegundos
-// tv_sec * 1000 para passar para milissegundos
-// tv_usec / 1000 para passar para milissegundos
-// somo os os dois valores para obter o tempo total em milissegundos
-long ft_get_time()
+long	get_time(void)
 {
-	// long res;
-	struct timeval time;
+	struct timeval	time;
 
-	// res = 0;
 	gettimeofday(&time, NULL);
-	// res += time.tv_sec * 1000 + time.tv_usec / 1000;
-	// return (res);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-void print_message(t_philo *philo, const char *message)
+void	print_message(t_philo *ph, const char *msg)
 {
-	pthread_mutex_lock(&philo->data->mutex_end_routine);
-	pthread_mutex_lock(&philo->data->mutex_print);
-	if (philo->data->end_routine == false)
-		printf("%ld %d %s\n", ft_get_time() - philo->data->start_routine, philo->id, message);
-	pthread_mutex_unlock(&philo->data->mutex_print);
-	pthread_mutex_unlock(&philo->data->mutex_end_routine);
+	pthread_mutex_lock(&ph->data->mutex_end_routine);
+	pthread_mutex_lock(&ph->data->mutex_print);
+	if (ph->data->end_routine == false)
+		printf("%ld %d %s\n", get_time() - ph->data->start_routine,
+			ph->id + 1, msg);
+	pthread_mutex_unlock(&ph->data->mutex_print);
+	pthread_mutex_unlock(&ph->data->mutex_end_routine);
 }
 
-int free_all(t_data *data)
+int	free_all(t_data *data)
 {
-	int i;
+	int	i;
 
 	if (pthread_join(data->monitor, NULL) != 0)
-			return (printf("%s", ERR_THREAD_JOIN_FAIL), FAILURE);
+		return (printf("%s", ERR_THREAD_JOIN_FAIL), FAILURE);
 	i = 0;
 	while (i < data->num_philos)
 	{
-		if (pthread_join(data->philos[i].thread_id, NULL) != 0)
+		if (pthread_join(data->philo[i].thread_id, NULL) != 0)
 			return (printf("%s", ERR_THREAD_JOIN_FAIL), FAILURE);
 		i++;
 	}
@@ -67,7 +60,7 @@ int free_all(t_data *data)
 		i++;
 	}
 	free(data->forks);
-	free(data->philos);
+	free(data->philo);
 	pthread_mutex_destroy(&data->mutex_end_routine);
 	pthread_mutex_destroy(&data->mutex_meal);
 	pthread_mutex_destroy(&data->mutex_print);
@@ -79,7 +72,6 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	memset(&data, 0, sizeof(t_data));
-
 	if (check_args(argc, argv) == FAILURE)
 		return (FAILURE);
 	if (init_all(&data, argc, argv) == FAILURE)

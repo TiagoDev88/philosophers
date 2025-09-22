@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:16:21 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/09/16 18:05:04 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/09/22 16:20:04 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	mutex_init(t_data *data)
 
 int	init_philo(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->num_philos)
@@ -37,12 +37,12 @@ int	init_philo(t_data *data)
 	i = 0;
 	while (i < data->num_philos)
 	{
-		data->philos[i].id = i;
-		data->philos[i].last_meal = 0;
-		data->philos[i].meals_eaten = 0;
-		data->philos[i].left_fork = &data->forks[(i + 1) % data->num_philos]; //aqui tive que trocar por causa da posicao esq ou direita
-		data->philos[i].right_fork = &data->forks[i];
-		data->philos[i].data = data;
+		data->philo[i].id = i;
+		data->philo[i].last_meal = 0;
+		data->philo[i].meals_eaten = 0;
+		data->philo[i].left_fork = &data->forks[(i + 1) % data->num_philos];
+		data->philo[i].right_fork = &data->forks[i];
+		data->philo[i].data = data;
 		i++;
 	}
 	if (mutex_init(data) != 0)
@@ -51,7 +51,7 @@ int	init_philo(t_data *data)
 		return (SUCCESS);
 }
 
-int	init_all(t_data *data, int argc, char** argv)
+int	init_all(t_data *data, int argc, char **argv)
 {
 	data->num_philos = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
@@ -61,14 +61,14 @@ int	init_all(t_data *data, int argc, char** argv)
 		data->must_eat = ft_atoi(argv[5]);
 	else
 		data->must_eat = -1;
-	data->philos = malloc(sizeof(t_philo) * data->num_philos);
-	if (!data->philos)
+	data->philo = malloc(sizeof(t_philo) * data->num_philos);
+	if (!data->philo)
 		return (printf("ERROR: Malloc t_philo failed\n"), FAILURE);
 	data->forks = malloc(sizeof(t_mutex) * data->num_philos);
 	if (!data->forks)
 		return (printf("%s", ERR_MUTEX_MALLOC_FAIL), FAILURE);
 	data->end_routine = false;
 	if (init_philo(data) == FAILURE)
-    	return (FAILURE);
+		return (FAILURE);
 	return (SUCCESS);
 }
