@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 14:46:08 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/09/22 16:18:26 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/09/24 10:43:31 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,9 @@ int	start_dinner(t_data *data)
 	data->start_routine = get_time();
 	while (i < data->num_philos)
 	{
+		data->philo[i].last_meal = data->start_routine;
 		if (pthread_create(&data->philo[i].thread_id, NULL, &ph_rout,
-				&data->philo[i]) != 0)
+						   &data->philo[i]) != 0)
 			return (printf("%s", ERR_THREAD_CREATE_FAIL), FAILURE);
 		i++;
 	}
