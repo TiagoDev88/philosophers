@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 14:46:08 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/09/22 16:18:26 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/09/24 14:58:17 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static void	*ph_rout(void *arg)
 		ft_eat(philo);
 		ft_sleep(philo);
 		ft_think(philo);
-		usleep(500);
+		if (philo->data->num_philos % 2 != 0)
+			my_sleep(philo->data->time_to_eat);
 	}
 	return (NULL);
 }
